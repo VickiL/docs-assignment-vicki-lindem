@@ -1,8 +1,8 @@
 # Debug Operations in Kubernetes
 
-The Kubernetes `kubectl` command-line tool communicates with the Kubernetes API and allows you to interact with and manage your Kubernetes cluster. In this topic, we'll cover commands that can aid you in debugging your Pos, including listing Pod details, examining logs, executing container commands, and creating dedicated debugging resources.
+The Kubernetes `kubectl` command-line tool allows you to interact with and manage your Kubernetes cluster. In this topic, we'll cover commands that can aid you in debugging your Pods, including listing Pod details, examining logs, executing container commands, and creating dedicated debugging resources.
 
-For a list of all `kubectl` commands, see the official [Kubectl Reference Docs](https://kubernetes.io/docs/reference/kubectl/quick-reference/).
+For a full list of `kubectl` commands, see the official [Kubectl Reference Docs](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands).
 
 
 ## List Pod Details
@@ -11,7 +11,7 @@ To list details for the Pods in your cluster, use the `get pods` command. `get p
 
 **Sample command**:
 
-The following command returns details for Pods in the namespace. Include the `--namespace=NAMESPACE` flag to review details about Pods in a specific namespace, or `--all-namespaces` to retrieve information on all Pods across all namespaces.
+The following command returns details for Pods in the current namespace. Include the `--namespace=NAMESPACE` flag to review details about Pods in a specific namespace, or `--all-namespaces` to retrieve information on all Pods across all namespaces.
 
 ```shell
 kubectl get pods 
@@ -34,7 +34,7 @@ Container logs allow you to monitor and debug cluster activity and performance. 
 
 **Sample command**:
 
-The following command prints logs for container `container1` in Pod `mypod`. If your Pod only has one container, you can omit the `-c CONTAINER` flag.
+The following command prints logs for container `container1` in Pod `mypod`. If your Pod only has one container, you can omit the `-c CONTAINER` flag. To retrieve the logs from all the containers in the Pod, include the `--all-containers` flag.
 
 ```shell
 kubectl logs mypod -c container1
@@ -47,33 +47,25 @@ kubectl logs mypod -c container1
 2: Fri Apr  1 11:42:25 UTC 2022
 ```
 
-To retrieve the logs from all the containers in the Pod, include the `--all-containers` flag.
-
 
 ## Execute a Command in a Container
 You can run a command inside a specific container with `kubectl exec`. This command is useful if your container image includes debugging utilities. 
 
 **Sample command**:
 
-The following example issues `exec` with the Pod name and `cat` command to retrieve authentication logs from a Linux-based container image.
+The following example issues `exec` with the Pod `mypod` and the `cat` command to retrieve authentication logs from a Linux-based container image.
 
 ```shell
 kubectl exec mypod -- cat /var/log/auth.log
 ```
 
 ## Create a Dedicated Debugging Resource
-If a container has crashed or does not include an image with debugging capabilities, you can use `kubectl debug` to create a dedicated debugging resource. 
+If a container has crashed or does not include an image with debugging capabilities, you can use `kubectl debug` to create a dedicated debugging resource with additional debugging capabilities and configurations. 
 
-`kubectl` provides two main ways to define debugging resources using the `debug` command: add a temporary "ephemeral" container to an existing Pod, or make a copy of a Pod.
-
-In it's most simple form, the `debug` command is as follows:
-
-```shell
-$ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
-```
+`kubectl debug` provides various two main ways to create debugging resources: add a temporary "ephemeral" container to an existing Pod, or make a copy of a Pod.
 
 ### Add an Ephemeral Container
-You can launch a temporary ephemeral container in an existing Pod to add additional debugging tools. 
+You can launch a temporary ephemeral container in an existing Pod to add additional debugging tools that may not be available in your current container image. 
 
 **Sample command**:
 
@@ -111,7 +103,7 @@ If you do not see a command prompt, try pressing enter.
 / #
 ```
 
-For a comprehensive review of `debug` options, see [Debug Running Pods](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/) in the Kubernetes Documentation.
+For a comprehensive review of `debug` options, see the [debug](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#debug) section of the Kubernetes Resource Docs.
 
 
 # References
