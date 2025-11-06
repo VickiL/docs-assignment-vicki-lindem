@@ -1,6 +1,11 @@
 # Debug Operations in Kubernetes
 
-The Kubernetes `kubectl` command-line interface allows you to interact with and manage your Kubernetes cluster. This section contains `kubectl` commands that aid with debugging your Pods, including listing Pod details, examining logs, executing container commands, and creating dedicated debugging resources.
+The Kubernetes `kubectl` command-line interface allows you to interact with and manage your Kubernetes cluster. This section contains `kubectl` commands that aid with debugging your Pods, specifically: 
+
+* `get pods` to list pod details
+* `logs` to fetch container logs
+* `exec` to execute commands inside a container
+* `debug` to create dedicated debugging resources 
 
 For a full list of `kubectl` commands, visit the official [Kubectl Reference Docs](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands).
 
